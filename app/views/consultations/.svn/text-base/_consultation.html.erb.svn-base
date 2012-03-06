@@ -1,0 +1,8 @@
+  <tr>
+    <td><%= consultation.when %></td>
+    <td><%= consultation.customer.name %></td>
+    <td><%= consultation.short_description %></td>
+    <td><%= link_to 'Anzeigen', consultation %></td>
+    <td><%= link_to 'Bearbeiten', edit_consultation_path(consultation) %></td>
+    <td><%= link_to 'Löschen', consultation, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>

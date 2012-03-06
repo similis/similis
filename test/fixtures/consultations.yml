@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  short_description: MyString
+  description: MyText
+  when: 2011-11-02
+  customer: 
+
+two:
+  short_description: MyString
+  description: MyText
+  when: 2011-11-02
+  customer: 

@@ -1,0 +1,60 @@
+10
+
+dir
+15
+svn+ssh://similis/var/svn/similis/app
+svn+ssh://similis/var/svn/similis
+
+
+
+2011-11-14T15:13:44.915416Z
+14
+similis
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+648632fb-4e5c-432e-a8a4-796ad2f7f518
+
+assets
+dir
+
+
+
+delete
+
+components
+dir
+
+controllers
+dir
+
+helpers
+dir
+
+mailers
+dir
+
+
+
+delete
+
+models
+dir
+
+uploaders
+dir
+
+views
+dir
+

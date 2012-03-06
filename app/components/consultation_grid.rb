@@ -1,0 +1,76 @@
+class ConsultationGrid < Netzke::Basepack::GridPanel
+
+#  js_method :init_component, <<-JS
+#    function(){
+#      this.store.sortInfo = { field: "consultation_date", direction: "DESC" };
+#      this.store.reload();
+#    }
+#  JS
+
+  def configuration
+    super.merge ({
+      :class_name => "Netzke::Basepack::GridPanel",
+      :model => "Consultation",
+      :title => "Termine",
+      :persistence => true,
+      :columns => [
+        { :name => :consultation_date, :header => "Datum", :format => "d.m.Y"},
+        { :name => :customer__name, :header => "Kunde"},
+        { :name => :duration, :header => "Dauer in Minuten"},
+        { :name => :short_description, :header => "Kurzbeschreibung"},
+        { :name => :treatment__name, :header => "Behandlung"},
+        { :name => :treatment_description, :header => "Behandlungsbeschreibung"},
+        {
+          :header => "Behandlungserfolg",
+          :read_only => true,
+          :getter => lambda { |r|
+            case r.treatment_success
+              when 1
+                "<img src='#{uri_to_icon("4star")}'>"
+              when 2
+                "<img src='#{uri_to_icon("3star")}'>"
+              when 3
+                "<img src='#{uri_to_icon("2star")}'>"
+              when 4
+                "<img src='#{uri_to_icon("1star")}'>"
+              when 5
+                "<img src='#{uri_to_icon("0star")}'>"
+            end
+          }
+        },
+        { :name => :limited_description, :header => "Beschreibung", :flex => 1},
+      ],
+      :edit_form_config => {
+        :width => 800,
+        :items => [
+          :id,
+          { :name => :consultation_date, :field_label => "Datum", :format => "d.m.y"},
+          { :name => :customer__name, :field_label => "Kunde" },
+          { :name => :duration, :field_label => "Dauer in Minuten"},
+          { :name => :short_description, :field_label => "Kurzbeschreibung"},
+          {
+            :name => :description,
+            :field_label => "Beschreibung",
+            :xtype => "htmleditor",
+            :height => 300
+          },
+          { :name => :treatment__name, :field_label => "Behandlung"},
+          { :name => :treatment_description, :field_label => "Behandlungsbeschreibung"},
+          { :name => :treatment_success,
+            :xtype => "combo",
+            :field_label => "Behandlungserfolg",
+            :store => [
+              [ 1, '**** - Sehr gut' ],
+              [ 2, ' *** - Gut'],
+              [ 3, '  ** - Teilweise'],
+              [ 4, '   * - Kaum'],
+              [ 5, '     - Keiner']
+            ]
+          }
+        ]
+      },
+      :bbar => [:search.action, :apply.action, :del.action, :add_in_form.action, :edit_in_form.action]
+    })
+  end
+
+end

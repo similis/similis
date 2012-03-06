@@ -1,0 +1,161 @@
+class SimilisApp < Netzke::Basepack::SimpleApp
+
+  # Initial layout of the app.
+  # <tt>status_bar_config</tt>, <tt>menu_bar_config</tt>, and <tt>main_panel_config</tt> are defined in SimpleApp.
+
+  # TODO automatische Sortierung der Termine nach Duration_date einbauen
+
+  def configuration
+    sup = super
+    sup.merge(
+      :items => [{
+        :region => :center,
+        :layout => :border,
+        :border => false,
+        :items => [status_bar_config, {
+          :region => :center,
+          :layout => :border,
+          :items => [menu_bar_config, main_panel_config, {
+
+            # Navigation
+            :region => :west,
+            :width => 200,
+            :split => true,
+            :xtype => :treepanel,
+            :title => "Navigation",
+            :root_visible => false,
+            :item_id => :navigation,
+            :root => {
+              :text => "Navigation",
+              :expanded => true,
+              :children => [{
+                :text => "Listenansicht",
+                :expanded => true,
+                :children => [{
+                  :text => "Kunden",
+                  :icon => uri_to_icon(:user),
+                  :leaf => true,
+                  :component => "customers"
+                },{
+                  :text => "Termine",
+                  :icon => uri_to_icon(:calendar),
+                  :leaf => true,
+                  :component => "consultations"
+                },{
+                  :text => "Behandlungen",
+                  :icon => uri_to_icon(:calendar),
+                  :leaf => true,
+                  :component => "treatments"
+                },{
+                  :text => "Dokumente",
+                  :icon => uri_to_icon(:report),
+                  :leaf => true,
+                  :component => "attachments"
+                },{
+                  :text => "Bildergallerien",
+                  :icon => uri_to_icon(:photos),
+                  :leaf => true,
+                  :component => "image_gallery"
+                }]
+              },{
+                :text => "Detailansicht",
+                :expanded => true,
+                :children => [{
+                    :text => "Kundendetails",
+                    :icon => uri_to_icon(:user),
+                    :leaf => true,
+                    :component => "customer_inspector"
+                }]
+              }]
+            }
+          }]
+        }]
+      }]
+    )
+  end
+
+  # Components
+  component :customers,
+    :class_name => "CustomerGrid"
+
+  component :treatments,
+    :class_name => "TreatmentGrid"
+
+  component :consultations,
+      :class_name => "ConsultationGrid",
+      :add_form_config => {
+        :items => [
+          :id,
+          { :name => :consultation_date, :field_label => "Datum", :format => "d.m.Y"},
+          { :name => :customer__name, :field_label => "Kunde" },
+          { :name => :duration, :field_label => "Dauer  in Minuten" },
+          { :name => :short_description, :field_label => "Kurzbeschreibung"},
+          {
+            :name => :description,
+            :field_label => "Beschreibung",
+            :xtype => "htmleditor"
+          },
+          { :name => :treatment__name, :field_label => "Behandlung"},
+          { :name => :treatment_description, :field_label => "Behandlungsbeschreibung"},
+          { :name => :treatment_success,
+            :xtype => "combo",
+            :field_label => "Behandlungserfolg",
+            :store => [
+              [ 1, '**** - Sehr gut' ],
+              [ 2, ' *** - Gut'],
+              [ 3, '  ** - Teilweise'],
+              [ 4, '   * - Kaum'],
+              [ 5, '     - Keiner']
+            ]
+          },
+        ]
+      }
+
+
+  component :attachments,
+    :class_name => "AttachmentGrid",
+    :model => "Attachment",
+    :lazy_loading => true,
+    :title => "Dateien",
+    :persistence => true
+
+  component :image_gallery,
+    :class_name => "ImageGalleryPanel",
+    :model => "ImageGallery",
+    :persistence => true,
+    :title => "Bildergalerien"
+
+  component :customer_inspector,
+    :class_name => "CustomerInspector",
+    :border => false,
+    :title => "Kundendetails"
+
+  # Overrides Ext.Component#initComponent to set the click event on the nodes
+  js_method :init_component, <<-JS
+    function(){
+      this.callParent();
+      this.navigation = this.query('panel[itemId="navigation"]')[0];
+      this.navigation.getView().on('itemclick', function(e,r,i){
+        if (r.raw.component) {
+          this.appLoadComponent(r.raw.component);
+        }
+      }, this);
+    }
+  JS
+
+  # Overrides SimpleApp#process_history, to initially select the node in the navigation tree
+  js_method :process_history, <<-JS
+    function(token){
+      if (token) {
+        var node = this.navigation.getStore().getRootNode().findChildBy(function(n){
+          return n.raw.component == token;
+        }, this, true);
+
+        if (node) this.navigation.getView().select(node);
+      }
+
+      this.callParent([token]);
+    }
+  JS
+
+end

@@ -1,0 +1,9 @@
+<h2>Kunden Suchen</h2>
+
+<%= form_tag action_name=search_result_customer_path %>
+
+  <div class="field">
+    <%= label_tag name="Kundenname" %>
+    <%= text_field_tag name="CustomerName" %>
+  </div>
+<%= submit_tag name="Suchen" %>

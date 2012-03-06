@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @customer.name %>
+</p>
+
+<p>
+  <b>Birthday:</b>
+  <%= @customer.birthday %>
+</p>
+
+<p>
+  <b>Street:</b>
+  <%= @customer.street %>
+</p>
+
+<p>
+  <b>Areacode:</b>
+  <%= @customer.areacode %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%= @customer.city %>
+</p>
+
+<h2>Consultations</h2>
+
+<table>
+    <%= render :partial => "consultations/list_header" %>
+    <%= render :partial => "consultations/consultation", :collection => @customer.consultations %>
+</table>
+
+<%= link_to 'Edit', edit_customer_path(@customer) %> |
+<%= link_to 'Create Consultation', add_consultation_to_customer_path(@customer) %> |
+<%= link_to 'Back', customers_path %>

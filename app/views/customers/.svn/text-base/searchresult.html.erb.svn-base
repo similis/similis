@@ -1,0 +1,8 @@
+<h1>Suchergebniss</h1>
+
+<p>Es wurden  <%= @customers.count %> Einträge gefunden%>
+
+<table>
+  <%= render :partial => "customers/list_header" %>
+  <%= render :partial => "customers/customer", :collection => @customers %>
+</table>

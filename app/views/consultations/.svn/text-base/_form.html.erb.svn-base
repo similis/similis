@@ -1,0 +1,30 @@
+<%= form_for(@consultation) do |f| %>
+  <% if @consultation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@consultation.errors.count, "error") %> prohibited this consultation from being saved:</h2>
+
+      <ul>
+      <% @consultation.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :short_description %><br />
+    <%= f.text_field :short_description %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :when %><br />
+    <%= f.date_select :when %>
+  </div>
+  <%= f.hidden_field :customer_id %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

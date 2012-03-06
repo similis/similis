@@ -1,0 +1,1 @@
+xcopy "C:\Projekte\MGM Intern" "H:\MGM\Intern" /D /S /C /R /Y

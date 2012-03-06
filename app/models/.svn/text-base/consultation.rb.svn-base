@@ -1,0 +1,7 @@
+class Consultation < ActiveRecord::Base
+  validates_presence_of :consultation_date
+  validates_presence_of :short_description
+
+  belongs_to :customer
+  belongs_to :treatment
+end

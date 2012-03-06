@@ -1,0 +1,8 @@
+<h1>Kundenverzeichnis</h1>
+
+<%= netzke :customers,
+           :class_name => "Basepack::GridPanel",
+           :model => "Customer",
+
+           :view_config => {:force_fit => true, :multi_select => false, :simple_select => false}
+%>

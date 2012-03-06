@@ -1,0 +1,10 @@
+  <tr>
+    <th width="100" align="left">Name</th>
+    <th width="150" align="left">Birthday</th>
+    <th width="100" align="left">Street</th>
+    <th width="50" align="left">Areacode</th>
+    <th width="100" align="left">City</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>

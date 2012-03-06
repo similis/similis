@@ -1,0 +1,10 @@
+<tr>
+  <td><%= customer.name %></td>
+  <td><%= customer.birthday %></td>
+  <td><%= customer.street %></td>
+  <td><%= customer.areacode %></td>
+  <td><%= customer.city %></td>
+  <td><%= link_to 'Anzeigen', customer %></td>
+  <td><%= link_to 'Ändern', edit_customer_path(customer) %></td>
+  <td><%= link_to 'Löschen', customer, confirm: 'Sind sie sicher?', method: :delete %></td>
+</tr>
