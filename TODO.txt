@@ -1,0 +1,47 @@
+// Todos für Demo Susanne
+
+* htmleditor vergrößerbar machen
+** resizeable funktioniert nicht wirklich.
+
+* Übersetzungen in der Suchmaske
+* Suchmaske zeigt Fremdschlüssel als Zahl an und löst diesen nicht auf.
+
+
+* Dokument an Kunden hängen und Verbindung überprüfen --> im CustomerInspector erscheinen alle Attachments
+
+* Pflichtfelder prüfen, DB mit Modelklassen vergleichen
+* Markierung der Pflichtfelder in der UI
+
+* Vernünftige Internationalisierung
+
+* nicht benötigte Dateien entfernen
+
+* Deployment
+
+* Reporting als html Seite anzeigen
+
+* Customer
+#TODO Customer Important Notes hinzufügen
+#TODO Umbenennen der Attachments in Dokumente
+
+* Partner
+** neues Attribut Krankenversicherung (privat / gesetzlich) hinzufügen
+
+
+offene Fraqen:
+Passen die Behandlungsmethoden?
+- Brauch ich die Potenz oder andere Informationen?
+
+
+DONE:
+
+* htmleditor für Behandlungsbeschreibung größer öffnen
+** dazu musste record_from_window aus dem Netzke Basepack angepasst werden. Dort war die Breite eines Fensters hart verdratet.
+** Jetzte muss bei jedem Add/edit Fenster die Breite explizit gesetzt werden
+
+* Javascript debugger einrichten
+** local geht nicht --> Debug Konfiguration einrichten
+**  Remote geht auch nicht, da das JavaScript dynamisch erzeugt wird und es kein HTML Anchor für den Debugger gibt
+
+* nur die ersten 200 Zeichen der Beschreibung anzeigen
+** neues virtuelles Attribut und entfernen der HTML Tags mit einer RegExp
